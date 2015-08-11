@@ -70,6 +70,8 @@ public class Window {
 
     private void addComponent() {
 
+        final int defaultX = ((frame.getWidth() - 440) / 10) + 440;
+
     	
         ActionListener listenerSave = new ActionListener() {
 
@@ -116,6 +118,10 @@ public class Window {
                     panel.add(labelPathImage);
                     panel.add(textPathImage);
                     panel.add(buttonChangePath);
+
+                    checkboxMumbleLink.setBounds(defaultX-5, 190, 90, 20);
+                    labelMumble.setBounds(defaultX + 95, 190, 20, 20);
+                    textMumble.setBounds(defaultX + 120, 190, 225, 20);
                 }
                 else
                 {
@@ -124,6 +130,11 @@ public class Window {
                         panel.remove(labelPathImage);
                         panel.remove(textPathImage);
                         panel.remove(buttonChangePath);
+
+                        checkboxMumbleLink.setBounds(defaultX-5, 165, 90, 20);
+                        labelMumble.setBounds(defaultX + 95, 165, 20, 20);
+                        textMumble.setBounds(defaultX + 120, 165, 225, 20);
+                        
                 	}
                 	catch(Exception ex){}
                 }
@@ -176,8 +187,6 @@ public class Window {
         labelPathImage = new JLabel("Chemin de l'image :");
         labelMumble = new JLabel("Ip :");
         labelCredits = new JLabel("http://azuxul.free.fr/ \t - \t https://github.com/Azuxul/ \t - \t @Azuxul");
-
-        int defaultX = ((frame.getWidth() - 440) / 10) + 440;
 
         panel.setLayout(null);
 
@@ -248,7 +257,7 @@ public class Window {
         textPathImage.setBounds(defaultX+105, 165, 215, 20);
         textPathImage.getDocument().addDocumentListener(new UpdatePathListener());
 
-        buttonChangePath.setBounds(defaultX, 165, 20, 20);
+        buttonChangePath.setBounds(defaultX+325, 165, 20, 20);
         buttonChangePath.addActionListener(listenerChangePath);
         
         checkboxMumbleLink.setBounds(defaultX-5, 165, 90, 20);
