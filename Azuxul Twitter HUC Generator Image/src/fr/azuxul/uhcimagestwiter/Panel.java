@@ -29,6 +29,7 @@ public class Panel extends JPanel {
         String ip = Main.getWindow().textIp.getText().length() <= 0?"IP":Main.getWindow().textIp.getText();
         String open = Main.getWindow().textOpen.getText().length() <= 0?"OPENTIME":Main.getWindow().textOpen.getText();
         String start = Main.getWindow().textStart.getText().length() <= 0?"STARTTIME":Main.getWindow().textStart.getText();
+        String mumble = Main.getWindow().textMumble.getText().length() <= 0?"MUMBLE IP":Main.getWindow().textMumble.getText();
 
         try{
             team = Integer.parseInt(Main.getWindow().textTeam.getText()) <= 0?"FFA":"To"+Main.getWindow().textTeam.getText();
@@ -70,18 +71,20 @@ public class Panel extends JPanel {
             sc2 = sc1.substring(mI + 1, sc1.length());
             sc1 = sc1.substring(0, mI + 1);
         }
+        
+        int y = (Main.getWindow().checkboxMumbleLink.isSelected() ? 240 : 220);
 
-        BufferedImage bufferedImage = new BufferedImage(440, 220, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage bufferedImage = new BufferedImage(440, y, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2D = bufferedImage.createGraphics();
         g2D.drawImage(img, 0, 0, bufferedImage.getWidth() * (bufferedImage.getWidth() * 100 / 440) / 100, bufferedImage.getHeight() * (bufferedImage.getHeight() * 100 / 220) / 100, this);
 
         g2D.setColor(new Color(55, 55, 55, 179));
-        g2D.fillRoundRect(10, 10, 440 - 20, 220 - 20, 3, 3);
+        g2D.fillRoundRect(10, 10, 440 - 20, y - 20, 3, 3);
 
         g2D.setFont(new Font("Sans", 0, 10));
         g2D.setColor(Color.WHITE);
-        g2D.drawString("Azuxul", 390, 205);
+        g2D.drawString("Azuxul", 390, y-15);
         g2D.setFont(new Font(g2D.getFont().getName(), g2D.getFont().getStyle(), 18));
         g2D.drawString(name + " " + team + " - " + date, 25, 35);
         g2D.drawString("- Scénarios: " +  sc1 , 25, 80); //Max char 34
@@ -89,6 +92,11 @@ public class Panel extends JPanel {
         g2D.drawString("- Ip: " + ip, 25, 130);
         g2D.drawString("- Ouverture: " + open, 25, 155);
         g2D.drawString("- Start: " + start, 25, 180);
+        
+        if(Main.getWindow().checkboxMumbleLink.isSelected())
+        {
+            g2D.drawString("- Mumble Link IP: " + mumble, 25, 205);
+        }
 
         int imgX = (this.getWidth() - bufferedImage.getWidth())/32, imgY = (this.getHeight() - bufferedImage.getHeight())/2;
         g.drawImage(bufferedImage, imgX, imgY, this);
@@ -103,7 +111,7 @@ public class Panel extends JPanel {
                 @Override
                 public boolean accept(File f) {
                     try {
-                    	if(!f.getName().substring((int) (f.getName().length() - 4), (int) (f.getName().length() - 3)).contains("."))return true;
+                    	if(f.isDirectory())return true;
                     	if(f.getName().substring((int) (f.getName().length() - 4)).equalsIgnoreCase(".lnk"))return true;
                     	if(f.getName().substring((int) (f.getName().length() - 4)).equalsIgnoreCase(".png"))return true;
                     } catch (Exception e) {

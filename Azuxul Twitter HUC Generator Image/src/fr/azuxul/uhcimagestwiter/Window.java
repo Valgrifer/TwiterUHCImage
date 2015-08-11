@@ -28,16 +28,19 @@ public class Window {
     public JFormattedTextField textOpen;
     public JFormattedTextField textStart;
     public JFormattedTextField textPathImage;
+    public JFormattedTextField textMumble;
     public JComboBox<String> listBackground;
+    public JCheckBox checkboxMumbleLink;
     public JLabel labelName;
     public JLabel labelTeamSize;
     public JLabel labelDate;
     public JLabel labelIP;
     public JLabel labelSc;
+    public JLabel labelOpen;
     public JLabel labelStart;
     public JLabel labelBackground;
     public JLabel labelPathImage;
-    public JLabel labelOpen;
+    public JLabel labelMumble;
     public JLabel labelCredits;
 
     public Window(int HEIGHT, int WEIGHT, String TITLE){
@@ -47,7 +50,7 @@ public class Window {
         frame.setSize(HEIGHT, WEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(720, 275));
+        frame.setMinimumSize(new Dimension(720, 325));
         frame.setResizable(false);
 
         panel = new Panel();
@@ -130,6 +133,25 @@ public class Window {
 
         };
 
+        ActionListener listenerMumble = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(checkboxMumbleLink.isSelected())
+                {
+                    panel.add(labelMumble);
+                    panel.add(textMumble);
+                }
+                else
+                {
+                    panel.remove(labelMumble);
+                    panel.remove(textMumble);
+                }
+                
+                Main.getWindow().update();
+            }
+        };
+
         buttonSave = new JButton("Export file as .png");
         buttonChangePath = new JButton("...");
         textName = new JFormattedTextField();
@@ -140,7 +162,9 @@ public class Window {
         textStart = new JFormattedTextField();
         textOpen = new JFormattedTextField();
         textPathImage = new JFormattedTextField();
+        textMumble = new JFormattedTextField();
         listBackground = new JComboBox<String>();
+        checkboxMumbleLink = new JCheckBox("Mumble Link");
         labelName = new JLabel("Name :");
         labelTeamSize = new JLabel("Team size (RvB=RvB, FFA=0) :");
         labelDate = new JLabel("Date :");
@@ -150,13 +174,14 @@ public class Window {
         labelStart = new JLabel("Start :");
         labelBackground = new JLabel("Image de font :");
         labelPathImage = new JLabel("Chemin de l'image :");
+        labelMumble = new JLabel("Ip :");
         labelCredits = new JLabel("http://azuxul.free.fr/ \t - \t https://github.com/Azuxul/ \t - \t @Azuxul");
 
         int defaultX = ((frame.getWidth() - 440) / 10) + 440;
 
         panel.setLayout(null);
 
-        buttonSave.setBounds(defaultX, 205, (frame.getWidth() - ((frame.getWidth() - 440) / 32) * 2 + 440) / 3, 30);
+        buttonSave.setBounds(defaultX, 255, ((frame.getWidth() - ((frame.getWidth() - 440) / 32) * 2 + 440) / 3), 30);
         buttonSave.addActionListener(listenerSave);
         panel.add(buttonSave);
 
@@ -223,10 +248,19 @@ public class Window {
         textPathImage.setBounds(defaultX+105, 165, 215, 20);
         textPathImage.getDocument().addDocumentListener(new UpdatePathListener());
 
-        buttonChangePath.setBounds(defaultX+325, 165, 20, 20);
+        buttonChangePath.setBounds(defaultX, 165, 20, 20);
         buttonChangePath.addActionListener(listenerChangePath);
         
-        labelCredits.setBounds(defaultX, 180, (frame.getWidth() - ((frame.getWidth() - 440) / 32) * 2 + 440) / 3, 25);
+        checkboxMumbleLink.setBounds(defaultX-5, 165, 90, 20);
+        checkboxMumbleLink.addActionListener(listenerMumble);
+        panel.add(checkboxMumbleLink);
+        
+        labelMumble.setBounds(defaultX + 95, 165, 20, 20);
+        
+        textMumble.setBounds(defaultX + 120, 165, 225, 20);
+        textMumble.getDocument().addDocumentListener(new UpdateListener());
+        
+        labelCredits.setBounds(defaultX, 230, (frame.getWidth() - ((frame.getWidth() - 440) / 32) * 2 + 440) / 3, 25);
         panel.add(labelCredits);
     }
 
