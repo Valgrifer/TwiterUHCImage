@@ -89,7 +89,7 @@ public class Panel extends JPanel {
         g2D.drawString("Azuxul & Valgrifer", 340, y-15);
         g2D.setFont(new Font(g2D.getFont().getName(), g2D.getFont().getStyle(), 18));
         g2D.drawString(name + " " + team + " - " + date, 25, 35);
-        g2D.drawString("- Scénarios: " +  sc1 , 25, 80); //Max char 34
+        g2D.drawString("- ScÃ©narios: " +  sc1 , 25, 80); //Max char 34
         g2D.drawString(sc2, 25, 105);
         g2D.drawString("- Ip: " + ip, 25, 130);
         g2D.drawString("- Ouverture: " + open, 25, 155);
